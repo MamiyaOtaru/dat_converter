@@ -45,6 +45,7 @@ class NBTInv extends nbt
 	{
 		$ret = array();
 		foreach($inventory as $item) {
+			echo "processing item ";
 			$ret[] = $this->formatItem($item);
 		}
 		return $ret;
@@ -62,6 +63,8 @@ class NBTInv extends nbt
 			{
 			case "id":
 				$ret->id = $att->value;
+				echo $ret->id;
+				echo "\n";
 				break;
 			case "damage":
 				$ret->damage = $att->value;
@@ -76,6 +79,7 @@ class NBTInv extends nbt
 				$ret->slot = $att->value;
 				break;
 			default:
+				echo "unrecognized node name `{$att->name}`";
 				throw new Exception("unrecognized node name `{$att->name}`. dump: ".json_encode($att));
 			}
 		}
@@ -100,13 +104,25 @@ class NBTInv extends nbt
 					$ret->enchantments[] = $this->formatEnchantment($enchantment);
 				}
 				break;
+			case "storedenchantments":
+				foreach($att->value['value'] as $enchantment) {
+					$ret->stored_enchantments[] = $this->formatEnchantment($enchantment);
+				}
+				break;
 			case "display":
 				$ret->display = $this->formatDisplay($att->value);
 				break;
 			case "fireworks":
 				$ret->firework = $this->formatFirework($att->value);
 				break;
+			case "map_is_scaling":
+				/*todo*/
+				break;
+			case "pages":
+				/*todo*/
+				break;
 			default:
+				echo "unrecognized tag name `{$att->name}`";
 				throw new Exception("unrecognized tag name `{$att->name}`. dump: ".json_encode($att));
 			}
 		}
@@ -131,6 +147,7 @@ class NBTInv extends nbt
 				$ret->level = $att->value;
 				break;
 			default:
+				echo "unrecognized enchantment attribute `{$att->name}`";
 				throw new Exception("unrecognized enchantment attribute `{$att->name}`. dump: ".json_encode($enchantment));
 			}
 		}
@@ -157,6 +174,7 @@ class NBTInv extends nbt
 				// nothing yet
 				break;
 			default:
+				echo "unrecognized display attribute `{$att->name}`";
 				throw new Exception("unrecognized display attribute `{$att->name}`. dump: ".json_encode($display));
 			}
 		}
@@ -183,7 +201,8 @@ class NBTInv extends nbt
 				}
 				break;
 			default:
-				throw new Exception("unrecognized display attribute `{$att->name}`. dump: ".json_encode($display));
+				echo "unrecognized firework attribute `{$att->name}`";
+				throw new Exception("unrecognized firework attribute `{$att->name}`. dump: ".json_encode($display));
 			}
 		}
 		return $ret;
@@ -216,7 +235,8 @@ class NBTInv extends nbt
 				$ret->fade_colors = $att->value;
 				break;
 			default:
-				throw new Exception("unrecognized enchantment attribute `{$att->name}`. dump: ".json_encode($enchantment));
+				echo "unrecognized explosion attribute `{$att->name}`";
+				throw new Exception("unrecognized explosion attribute `{$att->name}`. dump: ".json_encode($enchantment));
 			}
 		}
 		return $ret;

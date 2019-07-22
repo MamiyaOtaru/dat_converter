@@ -23,16 +23,16 @@ class MVInv
 		list($mat,$type) = explode("_",$armor->type);
 		switch($type)
 		{
-		case "HELMET":
+		case "helmet":
 			$slot = 3;
 			break;
-		case "CHESTPLATE":
+		case "chestplate":
 			$slot = 2;
 			break;
-		case "LEGGINGS":
+		case "leggings":
 			$slot = 1;
 			break;
-		case "BOOTS":
+		case "boots":
 			$slot = 0;
 			break;
 		}
@@ -59,6 +59,11 @@ class MVInv
 					$itemstack->enchant($ench->id,$ench->level);
 				}
 			}
+			if(!is_null($item->tag) && !is_null($item->tag->stored_enchantments)) {
+				foreach($item->tag->stored_enchantments as $ench) {
+					$itemstack->enchantStored($ench->id,$ench->level);
+				}
+			}
 			if(!is_null($item->tag) && !is_null($item->tag->display)) {
 				$itemstack->display($item->tag->display);
 			}
@@ -72,12 +77,17 @@ class MVInv
 
 	public function loadEnderInv($inventory)
 	{
-		print "MVInv: loading ".count($inventory)." items...\n";
+		print "MVInv: enderloading ".count($inventory)." items...\n";
 		foreach($inventory as $item) {
 			$itemstack = new ItemStack($item->id,$item->count,$item->damage);
 			if(!is_null($item->tag) && !is_null($item->tag->enchantments)) {
 				foreach($item->tag->enchantments as $ench) {
 					$itemstack->enchant($ench->id,$ench->level);
+				}
+			}
+			if(!is_null($item->tag) && !is_null($item->tag->stored_enchantments)) {
+				foreach($item->tag->stored_enchantments as $ench) {
+					$itemstack->enchantStored($ench->id,$ench->level);
 				}
 			}
 			if(!is_null($item->tag) && !is_null($item->tag->display)) {

@@ -10,7 +10,7 @@ class ItemStack
 	public function __construct($type,$amount=1,$damage=null)
 	{
 		if(is_int($type)) {
-			$type = Materials::getName($type);
+			$type = strtolower(Materials::getName($type));
 		}
 		$this->type = $type;
 		$this->amount = $amount;
@@ -28,6 +28,16 @@ class ItemStack
 			$type = Enchantments::getName($type);
 		}
 		$this->meta["enchants"][$type] = $level;
+	}
+
+	public function enchantStored($type,$level)
+	{
+		$this->meta["=="] = "ItemMeta";
+		$this->meta["meta-type"] = "UNSPECIFIC";
+		if(is_int($type)) {
+			$type = Enchantments::getName($type);
+		}
+		$this->meta["stored-enchants"][$type] = $level;
 	}
 
 	public function display($display)
