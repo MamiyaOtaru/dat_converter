@@ -225,8 +225,8 @@ class NBTInv extends nbt
 			case "type":
 				$ret->type = $att->value;
 				break;
-			case "trails":
-				$ret->trails = $att->value;
+			case "trail":
+				$ret->trail = $att->value;
 				break;
 			case "colors":
 				$ret->colors = $att->value;

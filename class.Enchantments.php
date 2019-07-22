@@ -11,6 +11,8 @@ class Enchantments
 			"5" => "OXYGEN",
 			"6" => "WATER_WORKER",
 			"7" => "THORNS",
+			"8" => "DEPTH_STRIDER",
+			"9" => "FROST_WALKER",
 			"16" => "DAMAGE_ALL",
 			"17" => "DAMAGE_UNDEAD",
 			"18" => "DAMAGE_ARTHROPODS",
@@ -25,6 +27,9 @@ class Enchantments
 			"49" => "ARROW_KNOCKBACK",
 			"50" => "ARROW_FIRE",
 			"51" => "ARROW_INFINITE",
+			"61" => "LUCK",
+			"62" => "LURE",
+			"70" => "MENDING",
 			);
 
 	public static function getName($id)
